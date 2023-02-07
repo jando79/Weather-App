@@ -7,7 +7,7 @@ import "./css/styles.css";
 
 function getWeather (city) {
   let request = new XMLHttpRequest();
-  const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=619a4f5e8d99a1c76a04315c9ecc3f6d`;
+  const url = 32
   
   request.addEventListener("loadend", function() {
     const response = JSON.parse(this.responseText);
@@ -26,7 +26,7 @@ function getWeather (city) {
 // UI Logic
 
 function printError(request, apiResponse, city) {
-  document.querySelector('#showResponse').innerText =  `There was an error accessing the weather data for ${city}: ${request.status} ${request.statusText}: ${apiResponse.message}`;
+  document.querySelector('#showResponse').innerText = `There was an error accessing the weather data for ${city}: ${request.status} ${request.statusText}: ${apiResponse.message}`;
 }
 
 function printElements(apiResponse, city) {
