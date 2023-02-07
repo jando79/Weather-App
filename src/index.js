@@ -1,34 +1,18 @@
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/styles.css";
-
+import WeatherService from "./js/weather-service.js";
 
 // Business Logic
 
-function getWeather() {
-  let promise = new Promise(function(resolve, reject) {
-  let request = new XMLHttpRequest();
-  const url = `http://api.openweathermap.org/data/2.5/weather?p=${city}&appid=${process.env.API_KEY}`;
-  
-  request.addEventListener("loadend", function() {
-    const response = JSON.parse(this.responseText);
-    if (this.status === 200) {
-      printElements(response, city);
-    } else {
-      reject([this, response, city]);
-    }
+function getWeather(city) {
+  let promise = WeatherService.getWeather(city);
+  promise.then(function(weatherDataArray) {
+    printElements(weatherDataArray);
+  }, function(errorArray) {
+    printError(errorArray);
   });
-    request.open("GET", url, true);
-    request.send();
-    });
-
-    promise.then(function(weatherDataArray) {
-      printElements(weatherDataArray);
-    }, function(errorArray) {
-      printError(errorArray);
-    });
 }
-
 
 // UI Logic
 
@@ -51,4 +35,3 @@ function handleFormSubmission(event) {
 window.addEventListener("load", function() {
   document.querySelector('form').addEventListener("submit", handleFormSubmission);
 });
-  
